@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const API_KEY = '45093842-7b9ddf19bc3b802955880273e';
 const BASE_URL = 'https://pixabay.com/api/';
 
@@ -13,6 +12,7 @@ export const fetchImg = async (query, page = 1) => {
         orientation: 'horizontal',
         safesearch: false,
         page: page,
+        per_page: 20,
       },
     });
     console.log('API RESPONSE', response.data);
