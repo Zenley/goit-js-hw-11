@@ -3,7 +3,8 @@ import { Notify } from 'notiflix';
 import { fetchImg } from './api.js';
 
 const form = document.querySelector('#search-form');
-const loadBtn = document.querySelector('.load-more')
+const loadBtn = document.querySelector('.load-more');
+const gallery = document.querySelector('.gallery');
 let page = 1;
 let query = '';
 
@@ -15,6 +16,8 @@ const onFormSubmit = e => {
     Notify.failure('Search box is empty!')
     return;
   }
+  page = 1;
+  gallery.innerHTML = '';
   onSearch(query);
 };
 
@@ -47,7 +50,7 @@ const onLoadMore = async () => {
 };
 
 const picGallery = images => {
-  const gallery = document.querySelector('.gallery');
+  
   gallery.insertAdjacentHTML(
     'beforeend',
     images
