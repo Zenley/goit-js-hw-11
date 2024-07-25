@@ -11,6 +11,10 @@ const onFormSubmit = e => {
   e.preventDefault();
   query = e.currentTarget.elements.searchQuery.value.trim();
   console.log(query);
+  if(!query) {
+    Notify.failure('Search box is empty!')
+    return;
+  }
   onSearch(query);
 };
 
@@ -19,13 +23,27 @@ const onSearch = async (query) => {
   console.log(images);
   picGallery(images.hits);
   loadBtn.computedStyleMap.display = "block"
+ if(images.hits.length === 0 ){
+    Notify.failure("You sure what you're looking for even exists?");
+    return;
+ }
+//  try {
+//     new SimpleLightbox('.gallery a', {
+//         captionsData: 'alt',
+//         captionDelay: 250,
+//         closeText: '',
+//      });
+// } catch (error) {
+//     console.error('Error initializing SimpleLightbox:', error);
+// }
+ console.log(document.querySelectorAll('.gallery a'))
 };
 
 const onLoadMore = async () => {
   page++;
   const images = await fetchImg(query, page);
   picGallery(images.hits);
-  
+  lightbox.refresh();
 };
 
 const picGallery = images => {
